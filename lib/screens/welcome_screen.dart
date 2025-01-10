@@ -15,28 +15,6 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChooseLanguageScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                "Select Language",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
           Container(
             decoration: BoxDecoration(
               color: Colors.black,
@@ -53,7 +31,31 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChooseLanguageScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Select Language",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Spacer(),
+
                   Row(
                     children: [
                       Container(

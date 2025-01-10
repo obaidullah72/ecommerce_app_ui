@@ -33,28 +33,29 @@ class _MainScreenState extends State<MainScreen> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(
-                alpha: 0.1,
-              ),
+              color: Colors.black.withOpacity(0.1),
               blurRadius: 20,
-              offset: Offset(
-                0,
-                -5,
-              ),
+              offset: const Offset(0, -5),
             ),
           ],
         ),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 8,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
             ),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   _buildNavItem(
                     1,
-                    Icons.favorite_outlined,
+                    Icons.favorite_border,
                     Icons.favorite,
                     'WishList',
                   ),
@@ -80,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   _buildNavItem(
                     4,
-                    Icons.person_outlined,
+                    Icons.person_outline,
                     Icons.person,
                     'Profile',
                   ),
@@ -98,42 +99,34 @@ class _MainScreenState extends State<MainScreen> {
     bool isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () => setState(() => _currentIndex = index),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
-        ),
-        child: Container(
-          decoration: isSelected
-              ? BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: AppTheme.primaryGradient,
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                )
-              : null,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                isSelected ? filledIcon : outlinedIcon,
-                color: isSelected ? Colors.white : AppTheme.textSecondary,
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isSelected ? Colors.white : AppTheme.textSecondary,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                ),
-              )
-            ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? AppTheme.primaryColor.withOpacity(0.1)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              isSelected ? filledIcon : outlinedIcon,
+              color: isSelected ? AppTheme.primaryColor : AppTheme.textSecondary,
+              size: 24,
+            ),
           ),
-        ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: isSelected ? AppTheme.primaryColor : AppTheme.textSecondary,
+              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -143,67 +136,62 @@ class _MainScreenState extends State<MainScreen> {
 
     return GestureDetector(
       onTap: () => setState(() => _currentIndex = 2),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
-        ),
-        decoration: isSelected
-            ? BoxDecoration(
-                gradient: LinearGradient(
-                  colors: AppTheme.primaryGradient,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? AppTheme.primaryColor.withOpacity(0.1)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              )
-            : null,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
+                child: Icon(
                   isSelected
                       ? Icons.shopping_cart
                       : Icons.shopping_cart_outlined,
-                  color: isSelected ? Colors.white : AppTheme.textSecondary,
+                  color:
+                  isSelected ? AppTheme.primaryColor : AppTheme.textSecondary,
+                  size: 24,
                 ),
-                SizedBox(
-                  height: 4,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                "Cart",
+                style: TextStyle(
+                  fontSize: 12,
+                  color:
+                  isSelected ? AppTheme.primaryColor : AppTheme.textSecondary,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                 ),
-                Text(
-                  "Cart",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isSelected ? Colors.white : AppTheme.textSecondary,
-                    fontWeight:
-                        isSelected ? FontWeight.w600 : FontWeight.normal,
-                  ),
-                )
-              ],
-            ),
-            Positioned(
-              top: -8,
-              right: -8,
-              child: Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: AppTheme.error,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  "3",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: -5,
+            right: -10,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: const BoxDecoration(
+                color: AppTheme.error,
+                shape: BoxShape.circle,
+              ),
+              child: const Text(
+                "3",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
