@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_dp_app/screens/choose_language_screen.dart';
 import 'package:flutter_ecommerce_dp_app/screens/otp_verification_screen.dart';
 import 'package:flutter_ecommerce_dp_app/screens/register_screen.dart';
 import 'package:flutter_ecommerce_dp_app/theme/themes.dart';
@@ -14,6 +15,28 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          Positioned(
+            top: 0,
+            right: 0,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChooseLanguageScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                "Select Language",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
           Container(
             decoration: BoxDecoration(
               color: Colors.black,
@@ -76,7 +99,7 @@ class WelcomeScreen extends StatelessWidget {
                   Text(
                     "The best way to shop your favourite brands and discover new ones",
                     style: TextStyle(
-                      color: Colors.white.withValues(alpha:0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 16,
                       height: 1.5,
                     ),
